@@ -16,6 +16,7 @@ USE `vic`;
 
 
 -- 테이블 vic.ck_troop 구조 내보내기
+DROP TABLE IF EXISTS `ck_troop`;
 CREATE TABLE IF NOT EXISTS `ck_troop` (
   `ID` int(11) NOT NULL,
   `location` varchar(50) DEFAULT NULL,
@@ -36,6 +37,7 @@ DELETE FROM `ck_troop`;
 
 
 -- 테이블 vic.indy 구조 내보내기
+DROP TABLE IF EXISTS `indy`;
 CREATE TABLE IF NOT EXISTS `indy` (
   `indy_id` int(11) NOT NULL AUTO_INCREMENT,
   `indy_loc` int(11) NOT NULL,
@@ -54,6 +56,7 @@ DELETE FROM `indy`;
 
 
 -- 테이블 vic.market 구조 내보내기
+DROP TABLE IF EXISTS `market`;
 CREATE TABLE IF NOT EXISTS `market` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `prod_name` char(50) NOT NULL,
@@ -69,6 +72,7 @@ DELETE FROM `market`;
 
 
 -- 테이블 vic.party 구조 내보내기
+DROP TABLE IF EXISTS `party`;
 CREATE TABLE IF NOT EXISTS `party` (
   `party_id` int(11) NOT NULL,
   `party_name` varchar(50) DEFAULT NULL,
@@ -91,6 +95,7 @@ INSERT INTO `party` (`party_id`, `party_name`, `ideology`, `trade`, `economy`, `
 
 
 -- 테이블 vic.pop 구조 내보내기
+DROP TABLE IF EXISTS `pop`;
 CREATE TABLE IF NOT EXISTS `pop` (
   `pop_id` int(11) NOT NULL AUTO_INCREMENT,
   `occupation` int(11) DEFAULT '0',
@@ -104,27 +109,46 @@ CREATE TABLE IF NOT EXISTS `pop` (
   `conscious` int(11) DEFAULT '0',
   `revanchism` int(11) DEFAULT '0',
   `money` double DEFAULT '10',
-  `one_party` int(11) DEFAULT NULL,
-  `two_party` int(11) DEFAULT NULL,
+  `one_party` char(50) DEFAULT NULL,
+  `two_party` char(50) DEFAULT NULL,
   `support` int(11) DEFAULT '10',
   PRIMARY KEY (`pop_id`),
   KEY `FK_pop_province` (`location`),
   KEY `FK_pop_rgo` (`occupation`),
   KEY `FK_pop_party` (`one_party`),
-  KEY `FK_pop_party_2` (`two_party`),
-  CONSTRAINT `FK_pop_party` FOREIGN KEY (`one_party`) REFERENCES `party` (`party_ID`),
-  CONSTRAINT `FK_pop_party_2` FOREIGN KEY (`two_party`) REFERENCES `party` (`party_ID`),
-  CONSTRAINT `FK_pop_province` FOREIGN KEY (`location`) REFERENCES `province` (`prov_ID`),
-  CONSTRAINT `FK_pop_rgo` FOREIGN KEY (`occupation`) REFERENCES `indy` (`indy_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `FK_pop_party_2` (`two_party`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 vic.pop:~0 rows (대략적) 내보내기
+-- 테이블 데이터 vic.pop:~21 rows (대략적) 내보내기
 DELETE FROM `pop`;
 /*!40000 ALTER TABLE `pop` DISABLE KEYS */;
+INSERT INTO `pop` (`pop_id`, `occupation`, `location`, `popclass`, `ideology`, `religion`, `population`, `primeissue`, `secissue`, `conscious`, `revanchism`, `money`, `one_party`, `two_party`, `support`) VALUES
+	(2, 0, NULL, 'farmers', 'anarcho-liberal', 'taoist', 41411, 'anti', 'residency', 0, 0, 10, NULL, NULL, 10),
+	(3, 0, NULL, 'slaves', 'liberal', 'taoist', 76585, 'free', 'jingo', 0, 0, 10, NULL, NULL, 10),
+	(4, 0, NULL, 'clerks', 'fascist', 'taoist', 17728, 'laissez', 'free', 0, 0, 10, NULL, NULL, 10),
+	(5, 0, NULL, 'soldiers', 'communist', 'taoist', 36920, 'anti', 'protect', 0, 0, 10, NULL, NULL, 10),
+	(6, 0, NULL, 'capitalists', 'reactionary', 'taoist', 47515, 'free', 'limited', 0, 0, 10, NULL, NULL, 10),
+	(7, 0, NULL, 'officers', 'conservative', 'taoist', 49365, 'state', 'secular', 0, 0, 10, NULL, NULL, 10),
+	(8, 0, NULL, 'craftsmen', 'reactionary', 'taoist', 71003, 'anti', 'pluralism', 0, 0, 10, NULL, NULL, 10),
+	(9, 0, NULL, 'craftsmen', 'fascist', 'taoist', 50157, 'planned', 'free', 0, 0, 10, NULL, NULL, 10),
+	(10, 0, NULL, 'clerks', 'reactionary', 'taoist', 65672, 'jingo', 'laissez', 0, 0, 10, NULL, NULL, 10),
+	(11, 0, NULL, 'laborers', 'reactionary', 'taoist', 29260, 'pro', 'full', 0, 0, 10, NULL, NULL, 10),
+	(12, 0, NULL, 'capitalists', 'reactionary', 'taoist', 58056, 'moralism', 'pacifist', 0, 0, 10, NULL, NULL, 10),
+	(13, 0, NULL, 'slaves', 'communist', 'taoist', 53417, 'state', 'limited', 0, 0, 10, NULL, NULL, 10),
+	(14, 0, NULL, 'breaucrats', 'reactionary', 'taoist', 16109, 'protect', 'limited', 0, 0, 10, NULL, NULL, 10),
+	(15, 0, NULL, 'farmers', 'liberal', 'taoist', 41313, 'moralism', 'free', 0, 0, 10, NULL, NULL, 10),
+	(16, 0, NULL, 'artisans', 'fascist', 'taoist', 62345, 'laissez', 'anti', 0, 0, 10, NULL, NULL, 10),
+	(17, 0, NULL, 'breaucrats', 'communist', 'taoist', 48656, 'residency', 'laissez', 0, 0, 10, NULL, NULL, 10),
+	(18, 0, NULL, 'slaves', 'communist', 'taoist', 65085, 'residency', 'protect', 0, 0, 10, NULL, NULL, 10),
+	(19, 0, NULL, 'soldiers', 'liberal', 'taoist', 40185, 'pluralism', 'planned', 0, 0, 10, NULL, NULL, 10),
+	(20, 0, NULL, 'laborers', 'fascist', 'taoist', 69650, 'moralism', 'state', 0, 0, 10, NULL, NULL, 10),
+	(21, 0, NULL, 'slaves', 'fascist', 'taoist', 72779, 'secular', 'protect', 0, 0, 10, NULL, NULL, 10),
+	(22, 0, NULL, 'capitalists', 'communist', 'taoist', 70320, 'residency', 'anti', 0, 0, 10, NULL, NULL, 10);
 /*!40000 ALTER TABLE `pop` ENABLE KEYS */;
 
 
 -- 테이블 vic.province 구조 내보내기
+DROP TABLE IF EXISTS `province`;
 CREATE TABLE IF NOT EXISTS `province` (
   `prov_id` int(11) NOT NULL AUTO_INCREMENT,
   `prov_name` char(50) NOT NULL,
