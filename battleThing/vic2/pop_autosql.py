@@ -48,7 +48,6 @@ partysql = "select * from party"
 print('---popsupport---\n\n\n')
 
 
-
 def loadparty():  # sql안에 있는 모든 정당을 불러온다.
     partylist = []  # 게임에 있는 모든 정당 목록. 인원이 변동될때마다 불러와야 함.
     partycurs = sql.cursor()
@@ -56,11 +55,12 @@ def loadparty():  # sql안에 있는 모든 정당을 불러온다.
     party_all = partycurs.fetchall()
     return party_all
 
-loadparty()
+# loadparty()
 
 def popsupport():
     popsql = "select * from pop"    # 게임 내 모든 팝 불러오기
-    partycurs = sql.cursor()        # 모든 정당 불러오기
+    # partycurs = sql.cursor()        # 모든 정당 불러오기
+    party_list = loadparty()                     # 정당 불러오기.
     nonvoters = 0
     curs.execute(popsql)
     poplist = curs.fetchall()
@@ -70,9 +70,10 @@ def popsupport():
     # 지지정당의 선택방식은 크게 세가지로 나뉠 예정: 사상이 같은가, 관점이 같은가, 소속 지역의 정당 충성도는 얼마나 되는가.
     # 사상이 우선인가 관점이 우선인가는 정치인식도에 따라 갈리지만 현재는 고려없이 사상우선으로 한다.
     for ppl in poplist:
-        partycurs.execute(partysql)
+        # partycurs.execute(partysql)
         print('-----')
         one_party = ppl['one_party']
+        two_party = ppl['two_party']
         print(ppl['popclass'])
         if ppl['popclass'].lower() == 'slaves':
             nonvoters += int(ppl['population'])
@@ -80,13 +81,18 @@ def popsupport():
             pass
         else:
             print('phase 2')  # 성향을 결정. 현재는
-            for parti in partycurs:
+            for parti in party_list:
                 party_issues = [parti[3], parti[4], parti[5], parti[6], parti[7]]
                 party_ideology = parti[2]  # 당의 정치성향.
                 print('partyname: ', parti[1], ' / people\'s idea:', ppl['ideology'])
                 if ppl['ideology'] == party_ideology:  # 정당 사상이 맞으면 그다음 단계인 관점으로 간다.
                     if ppl["primeissue"] in party_issues:
-                            one_party = parti[1]
-            print('this', ppl['popclass'], 'supports', one_party)
+                        two_party = one_party
+                        one_party = parti[1]
+                    elif ppl['secissue'] in party_issues:
+                        two_party = one_party
+                        one_party = parti[1]
 
-# popsupport()
+            print('these', ppl['popclass'], 'supports', one_party)
+
+popsupport()
