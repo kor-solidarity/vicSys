@@ -5,14 +5,17 @@ https://forum.paradoxplaza.com/forum/index.php?threads/factory-efficiency-math.6
 http://www.victoria2wiki.com/Resource_gathering_operation#Income_distribution
 http://www.victoria2wiki.com/Production
 
+short summary of how foctory works.
+1. 공장의 인력을 확인한다. 인력이 얼마나 있냐에 따라 생산량이 달라지니 이에 따른 조정이 필요함.
+2. 그 후 생산량에 따른 물건을 구입한다. 만약 구입할 돈이 없을 시 그날 생산은 없는거.
+    이때 돈은 공장 내부 자체 현금으로 충당한다.
+3. 생산 후 바로 시장에 판다. 남는 자원? 그런거 없다.
+4. 그 후 수익을 계산한다. 수익은 해당 지역에 있는 팝 모두에게 분배된다.
+5. 분배방식: 자본가 50%, 사무원 · 기술자 1/n. 그 안에서 팝들 수에 맞게 분배한다. 팝 수? 몰라 안따질래.
+6. 1로.
 
-
-
-
-
-
-
-
+공장의 인원배분방식.
+공장은 기본적으로 10개 팝을 수용한다.
 
 
 

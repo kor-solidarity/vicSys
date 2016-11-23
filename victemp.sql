@@ -74,7 +74,7 @@ DELETE FROM `market`;
 -- 테이블 vic.party 구조 내보내기
 DROP TABLE IF EXISTS `party`;
 CREATE TABLE IF NOT EXISTS `party` (
-  `party_id` int(11) NOT NULL,
+  `party_id` int(11) NOT NULL AUTO_INCREMENT,
   `party_name` varchar(50) DEFAULT NULL,
   `ideology` varchar(50) DEFAULT NULL,
   `trade` varchar(50) DEFAULT NULL,
